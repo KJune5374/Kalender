@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 
 function SharePage({ picture }) {
@@ -8,14 +9,21 @@ function SharePage({ picture }) {
   React.useEffect(() => {
 	  axios.get(url)
 	  .then(res => setData(res.data))});
+
+    const dispatch = useDispatch();
+    const image = useSelector(state => state.image);
+  
+    useEffect(() => {
+    dispatch({type: "UPDATE_IMAGE", payload: image});
+  }, [dispatch, image]);
+  
   return (
     <View>
       <View style={styles.formContainer}> 
       <Text>공유 페이지 (임시)</Text>
       </View>
       <View style={styles.formContainer}>
-      <Text>uploaded image:</Text>
-      <Image source={{uri: "https://t4.daumcdn.net/thumb/R720x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/4Rt4/image/ufkfI9OvZh0eEWwiHjEYuhqEiio.jpg"}} />
+      <Image source={{ uri: image }} style={styles.image} />
       </View>
       <View style={styles.formContainer}>
       <Text>음식 이름 리스트</Text>
@@ -34,7 +42,7 @@ const styles = StyleSheet.create({
     padding: 16
   },
   formContainer: {
-    alignSelf: "stretch",
+    alignSelf: "center",
     marginTop: 16
   },
   input: {

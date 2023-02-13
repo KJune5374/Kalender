@@ -9,7 +9,7 @@ function DropDown() {
       selectedValue={selectedOption}
       onValueChange={(itemValue) => setSelectedOption(itemValue)}
     >
-      <Picker.Item label="이미지 생성 시간" value="default" />
+      <Picker.Item label="식사 시간을 선택해 주세요" value="default" />
       <Picker.Item label="아침" value="breakfast" />
       <Picker.Item label="점심" value="lunch" />
       <Picker.Item label="저녁" value="dinner" />
